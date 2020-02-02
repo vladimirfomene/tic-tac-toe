@@ -15,5 +15,21 @@ function play(player, grid) {
   updateBoard(grid, position, player);
 }
 
+function setupPlayers() {
+  return [
+    {
+      type: "human",
+      character: "",
+      hasWon: false
+    },
+    {
+      type: "AI",
+      character: "",
+      hasWon: false
+    }
+  ];
+}
+
+exports.setupPlayers = setupPlayers;
 exports.startGame = startGame;
 exports.play = play;
