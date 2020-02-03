@@ -123,22 +123,23 @@ describe("testing choosePlayer...", () => {
 });
 
 describe("testing choosePosition", () => {
-  let human = {
+  const human = {
     type: "human",
     character: "",
     hasWon: false,
     turn: false
   };
 
-  let ai = {
+  const ai = {
     type: "AI",
     character: "",
     hasWon: false,
     turn: false
   };
+  const mockRead = jest.fn(() => Math.round((Math.random() * 8) + 1));
   test("can ai or human choose position", () => {
-    let posHuman = game.choosePosition(human);
-    let posAI = game.choosePosition(ai);
+    const posHuman = game.choosePosition(human, grid, mockRead);
+    const posAI = game.choosePosition(ai, grid, mockRead);
     expect(posHuman).toBeGreaterThan(0);
     expect(posHuman).toBeLessThan(10);
     expect(posAI).toBeGreaterThan(0);
@@ -147,12 +148,12 @@ describe("testing choosePosition", () => {
 });
 
 describe("testing updateBoard...", () => {
-  let grid = [
+  const grid = [
     ["x", "x", "x"],
     [4, "o", "o"],
     [7, 8, 9]
   ];
-  let human = {
+  const human = {
     type: "human",
     character: "o",
     hasWon: false,
@@ -165,5 +166,38 @@ describe("testing updateBoard...", () => {
       ["o", "o", "o"],
       [7, 8, 9]
     ]);
+  });
+});
+
+describe("testing isPositionEmpty...", () => {
+  const grid = [
+    ["x", "x", "x"],
+    ["x", "o", "o"],
+    ["x", "x", "x"]
+  ];
+  test("check if we have an empty position in the grid", () => {
+    expect(game.isPositionEmpty(1, grid)).toBeFalsy();
+    expect(game.isPositionEmpty(-1, grid)).toBeFalsy();
+  });
+});
+
+describe("testing setupGame...", () => {
+  const setupPlayers = [{
+    type: "human",
+    character: "o",
+    hasWon: true,
+    turn: false
+  },
+  {
+    type: "AI",
+    character: "x",
+    hasWon: true,
+    turn: false
+  }];
+  const mockRead = jest.fn(() => "o");
+
+  test("were playing characters assigned", () => {
+    game.setupGame(players, mockRead);
+    expect(players).toEqual(setupPlayers);
   });
 });
