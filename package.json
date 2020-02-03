@@ -5,8 +5,8 @@
   "main": "game.js",
   "scripts": {
     "test": "jest",
-    "play": "node play.js",
-    "lint": "npx eslint . --fix"
+    "play": "node ./src/play.js",
+    "lint": "npx eslint ./src --fix"
   },
   "keywords": [
     "Jest",
