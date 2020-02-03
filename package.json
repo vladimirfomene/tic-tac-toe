@@ -5,7 +5,7 @@
   "main": "game.js",
   "scripts": {
     "test": "jest",
-    "play": "node game.js",
+    "play": "node play.js",
     "lint": "npx eslint ."
   },
   "keywords": [
