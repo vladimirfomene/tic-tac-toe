@@ -10,9 +10,9 @@ function startGame () {
   const grid = buildBoard();
   setupGame(players);
   while (!isGameOver(grid, players)) {
+    printBoard(grid);
     const currentPlayer = choosePlayer(players);
     play(currentPlayer, grid);
-    printBoard(grid);
   }
   declareWinner();
 }
@@ -127,6 +127,17 @@ function isGridFull (grid) {
   return true;
 }
 
+function printBoard (grid, printFn) {
+  for (let i = 0; i < grid.length; i++) {
+    let row = "";
+    for (let j = 0; j < grid[0].length; j++) {
+      row += "|" + grid[i][j] + "|";
+    }
+    printFn(row);
+  }
+}
+
+exports.printBoard = printBoard;
 exports.isGameOver = isGameOver;
 exports.setupGame = setupGame;
 exports.buildBoard = buildBoard;
