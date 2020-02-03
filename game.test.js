@@ -137,11 +137,33 @@ describe("testing choosePosition", () => {
     turn: false
   };
   test("can ai or human choose position", () => {
-      let posHuman = game.choosePosition(human);
-      let posAI = game.choosePosition(ai);
-      expect(posHuman).toBeGreaterThan(0);
-      expect(posHuman).toBeLessThan(10);
-      expect(posAI).toBeGreaterThan(0);
-      expect(posAI).toBeLessThan(10);
+    let posHuman = game.choosePosition(human);
+    let posAI = game.choosePosition(ai);
+    expect(posHuman).toBeGreaterThan(0);
+    expect(posHuman).toBeLessThan(10);
+    expect(posAI).toBeGreaterThan(0);
+    expect(posAI).toBeLessThan(10);
+  });
+});
+
+describe("testing updateBoard...", () => {
+  let grid = [
+    ["x", "x", "x"],
+    [4, "o", "o"],
+    [7, 8, 9]
+  ];
+  let human = {
+    type: "human",
+    character: "o",
+    hasWon: false,
+    turn: false
+  };
+  test("can update grid from state A to B", () => {
+    game.updateBoard(grid, 4, human);
+    expect(grid).toEqual([
+      ["x", "x", "x"],
+      ["o", "o", "o"],
+      [7, 8, 9]
+    ]);
   });
 });
