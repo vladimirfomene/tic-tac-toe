@@ -3,17 +3,18 @@ const readline = require("readline-sync");
 function startGame () {
   const players = setupPlayers();
   const grid = buildBoard();
-  setupGame(players);
+  setupGame(players, readline.question);
   while (!isGameOver(grid, players)) {
-    printBoard(grid);
+    printBoard(grid, console.log);
     const currentPlayer = choosePlayer(players);
     play(currentPlayer, grid);
   }
-  declareWinner();
+  printBoard(grid, console.log);
+  declareWinner(players, console.log);
 }
 
 function play (player, grid) {
-  const position = choosePosition(player);
+  const position = choosePosition(player, grid, readline.question);
   updateBoard(grid, position, player);
 }
 
@@ -49,25 +50,24 @@ function buildBoard () {
   return grid;
 }
 
-function setupGame (players) {
+function setupGame (players, read) {
   console.log("Welcome! This is a Tic Tac Toe game.");
   console.log(
     "To start playing you need to choose a character you will use from either \"o\" or \"x\""
   );
 
   let char = "";
-  rl.question("Enter your chosen character? ", function (ans) {
-    char = ans.trim();
-    rl.close();
+  while (["o", "x"].indexOf(char) === -1) {
+    char = read("Enter your chosen character? ");
+  }
 
-    if (char === "o") {
-      players[0].character = char;
-      players[1].character = "x";
-    } else {
-      players[0].character = char;
-      players[1].character = "o";
-    }
-  });
+  if (char === "o") {
+    players[0].character = char;
+    players[1].character = "x";
+  } else {
+    players[0].character = char;
+    players[1].character = "o";
+  }
 }
 
 function isGameOver (grid, players) {
@@ -154,19 +154,33 @@ function choosePlayer (players) {
   return null;
 }
 
-function choosePosition (player) {
+function choosePosition (player, grid, read) {
   let position = -1;
   if (player.type === "human") {
     while (position < 1 || position > 9 || isNaN(position)) {
-      position = parseInt(readline.question("Choose a position on the board? "));
+      position = parseInt(read("Choose a position on the board? "));
+      if (!isPositionEmpty(position, grid)) position = -1;
     }
   }
 
   if (player.type === "AI") {
-    position = Math.round(Math.random() * 8) + 1;
+    while (!isPositionEmpty(position, grid)) {
+      position = Math.round(Math.random() * 8) + 1;
+    }
   }
 
   return position;
+}
+
+function isPositionEmpty (position, grid) {
+  if (position < 1 || position > 9) return false;
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === position) return true;
+    }
+  }
+  return false;
 }
 
 function updateBoard (grid, position, player) {
@@ -177,6 +191,21 @@ function updateBoard (grid, position, player) {
   }
 }
 
+function declareWinner (players, printFn) {
+  if (players[0].hasWon && players[1].hasWon) {
+    printFn("Oh, it is a draw");
+  }
+
+  if (players[0].hasWon) {
+    printFn("Congratulations, You win!");
+  }
+
+  if (players[1].hasWon) {
+    printFn("Oh la la, the computer wins");
+  }
+}
+
+exports.isPositionEmpty = isPositionEmpty;
 exports.updateBoard = updateBoard;
 exports.choosePosition = choosePosition;
 exports.choosePlayer = choosePlayer;
