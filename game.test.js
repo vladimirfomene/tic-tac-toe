@@ -44,23 +44,23 @@ describe("testing buildBoard...", () => {
 });
 
 describe("testing isGameOver...", () => {
-  let horizontalGrid = [
+  const horizontalGrid = [
     ["x", "x", "x"],
     [4, "o", "o"],
     [7, 8, 9]
   ];
-  let verticalGrid = [
+  const verticalGrid = [
     ["x", "o", "o"],
     ["x", "o", "o"],
     ["x", 8, 9]
   ];
-  let diagonalGrid = [
+  const diagonalGrid = [
     ["x", "o", "x"],
     [4, "x", "o"],
     [7, 8, "x"]
   ];
 
-  let fullGrid = [
+  const fullGrid = [
     ["x", "o", "x"],
     ["x", "x", "o"],
     ["o", "x", "o"]
@@ -84,7 +84,7 @@ describe("testing printBoard...", () => {
 
 describe("testing choosePlayer...", () => {
   test("was current player chosen", () => {
-    let initPlayers = [
+    const initPlayers = [
       {
         type: "human",
         character: "",
@@ -98,7 +98,7 @@ describe("testing choosePlayer...", () => {
         turn: false
       }
     ];
-    let turnPlayers = [
+    const turnPlayers = [
       {
         type: "human",
         character: "",
@@ -119,5 +119,29 @@ describe("testing choosePlayer...", () => {
       hasWon: false,
       turn: true
     });
+  });
+});
+
+describe("testing choosePosition", () => {
+  let human = {
+    type: "human",
+    character: "",
+    hasWon: false,
+    turn: false
+  };
+
+  let ai = {
+    type: "AI",
+    character: "",
+    hasWon: false,
+    turn: false
+  };
+  test("can ai or human choose position", () => {
+      let posHuman = game.choosePosition(human);
+      let posAI = game.choosePosition(ai);
+      expect(posHuman).toBeGreaterThan(0);
+      expect(posHuman).toBeLessThan(10);
+      expect(posAI).toBeGreaterThan(0);
+      expect(posAI).toBeLessThan(10);
   });
 });
