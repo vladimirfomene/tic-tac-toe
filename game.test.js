@@ -81,3 +81,43 @@ describe("testing printBoard...", () => {
     expect(printMock).toHaveBeenCalledTimes(3);
   });
 });
+
+describe("testing choosePlayer...", () => {
+  test("was current player chosen", () => {
+    let initPlayers = [
+      {
+        type: "human",
+        character: "",
+        hasWon: false,
+        turn: false
+      },
+      {
+        type: "AI",
+        character: "",
+        hasWon: false,
+        turn: false
+      }
+    ];
+    let turnPlayers = [
+      {
+        type: "human",
+        character: "",
+        hasWon: false,
+        turn: true
+      },
+      {
+        type: "AI",
+        character: "",
+        hasWon: false,
+        turn: false
+      }
+    ];
+    expect(game.choosePlayer(initPlayers)).not.toBeNull();
+    expect(game.choosePlayer(turnPlayers)).toEqual({
+      type: "AI",
+      character: "",
+      hasWon: false,
+      turn: true
+    });
+  });
+});
