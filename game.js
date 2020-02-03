@@ -169,6 +169,15 @@ function choosePosition (player) {
   return position;
 }
 
+function updateBoard (grid, position, player) {
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === position) grid[i][j] = player.character;
+    }
+  }
+}
+
+exports.updateBoard = updateBoard;
 exports.choosePosition = choosePosition;
 exports.choosePlayer = choosePlayer;
 exports.printBoard = printBoard;
