@@ -13,14 +13,26 @@ describe("testing setupPlayers", () => {
   });
 
   test("do we have a human player", () => {
-    let human = players.filter(player => player.type === "human");
+    const human = players.filter(player => player.type === "human");
     expect(human.length).toBe(1);
     expect(human[0].type).toEqual("human");
   });
 
   test("do we have an AI player", () => {
-    let ai = players.filter(player => player.type === "AI");
+    const ai = players.filter(player => player.type === "AI");
     expect(ai.length).toBe(1);
     expect(ai[0].type).toEqual("AI");
+  });
+});
+
+describe("testing buildBoard", () => {
+  const grid = game.buildBoard();
+  test("has grid been created with initial vals", () => {
+    let count = 1;
+    for (let i = 0; i < grid.length; i++) {
+      for (let j = 0; j < grid[0].length; j++) {
+        expect(grid[i][j]).toBe(count++);
+      }
+    }
   });
 });
