@@ -82,7 +82,7 @@ describe("testing printBoard...", () => {
   });
 });
 
-describe("testing choosePlayer...", () => {
+describe("testing choosePlayerToPlay...", () => {
   test("was current player chosen", () => {
     const initPlayers = [
       {
@@ -112,8 +112,8 @@ describe("testing choosePlayer...", () => {
         turn: false
       }
     ];
-    expect(game.choosePlayer(initPlayers)).not.toBeNull();
-    expect(game.choosePlayer(turnPlayers)).toEqual({
+    expect(game.choosePlayerToPlay(initPlayers)).not.toBeNull();
+    expect(game.choosePlayerToPlay(turnPlayers)).toEqual({
       type: "AI",
       character: "",
       hasWon: false,
@@ -123,23 +123,10 @@ describe("testing choosePlayer...", () => {
 });
 
 describe("testing choosePosition", () => {
-  const human = {
-    type: "human",
-    character: "",
-    hasWon: false,
-    turn: false
-  };
-
-  const ai = {
-    type: "AI",
-    character: "",
-    hasWon: false,
-    turn: false
-  };
   const mockRead = jest.fn(() => Math.round((Math.random() * 8) + 1));
   test("can ai or human choose position", () => {
-    const posHuman = game.choosePosition(human, grid, mockRead);
-    const posAI = game.choosePosition(ai, grid, mockRead);
+    const posHuman = game.choosePosition(players[0], grid, mockRead);
+    const posAI = game.choosePosition(players[1], grid, mockRead);
     expect(posHuman).toBeGreaterThan(0);
     expect(posHuman).toBeLessThan(10);
     expect(posAI).toBeGreaterThan(0);

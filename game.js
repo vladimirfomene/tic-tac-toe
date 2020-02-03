@@ -1,6 +1,6 @@
 const readline = require("readline-sync");
 
-function startGame() {
+function startGame () {
   let shouldContinue = true;
   while (shouldContinue) {
     const players = setupPlayers();
@@ -9,7 +9,7 @@ function startGame() {
     while (!isGameOver(grid, players)) {
       printBoard(grid, console.log);
       const currentPlayer = choosePlayerToPlay(players);
-      if(currentPlayer.type === "AI") console.log("It is now the computer's turn...");
+      if (currentPlayer.type === "AI") console.log("It is now the computer's turn...");
       play(currentPlayer, grid);
     }
     printBoard(grid, console.log);
@@ -24,12 +24,12 @@ function startGame() {
   }
 }
 
-function play(player, grid) {
+function play (player, grid) {
   const position = choosePosition(player, grid, readline.question);
   updateBoard(grid, position, player);
 }
 
-function setupPlayers() {
+function setupPlayers () {
   return [
     {
       type: "human",
@@ -46,7 +46,7 @@ function setupPlayers() {
   ];
 }
 
-function buildBoard() {
+function buildBoard () {
   const grid = new Array(3);
   for (let k = 0; k < grid.length; k++) {
     grid[k] = new Array(3);
@@ -61,10 +61,10 @@ function buildBoard() {
   return grid;
 }
 
-function setupGame(players, read) {
+function setupGame (players, read) {
   console.log("Welcome! This is a Tic Tac Toe game.");
   console.log(
-    'To start playing you need to choose a character you will use from either "o" or "x"'
+    "To start playing you need to choose a character you will use from either \"o\" or \"x\""
   );
 
   let char = "";
@@ -81,7 +81,7 @@ function setupGame(players, read) {
   }
 }
 
-function isGameOver(grid, players) {
+function isGameOver (grid, players) {
   for (let i = 0; i < grid.length; i++) {
     if (grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2]) {
       for (const player of players) {
@@ -124,7 +124,7 @@ function isGameOver(grid, players) {
   return false;
 }
 
-function isGridFull(grid) {
+function isGridFull (grid) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
       if (typeof grid[i][j] === "number") return false;
@@ -133,7 +133,7 @@ function isGridFull(grid) {
   return true;
 }
 
-function printBoard(grid, printFn) {
+function printBoard (grid, printFn) {
   for (let i = 0; i < grid.length; i++) {
     let row = "";
     for (let j = 0; j < grid[0].length; j++) {
@@ -143,7 +143,7 @@ function printBoard(grid, printFn) {
   }
 }
 
-function choosePlayerToPlay(players) {
+function choosePlayerToPlay (players) {
   if (!players[0].turn && !players[1].turn) {
     const idx = Math.round(Math.random() * 1);
     players[idx].turn = true;
@@ -165,7 +165,7 @@ function choosePlayerToPlay(players) {
   return null;
 }
 
-function choosePosition(player, grid, read) {
+function choosePosition (player, grid, read) {
   let position = -1;
   if (player.type === "human") {
     while (position < 1 || position > 9 || isNaN(position)) {
@@ -183,7 +183,7 @@ function choosePosition(player, grid, read) {
   return position;
 }
 
-function isPositionEmpty(position, grid) {
+function isPositionEmpty (position, grid) {
   if (position < 1 || position > 9) return false;
 
   for (let i = 0; i < grid.length; i++) {
@@ -194,7 +194,7 @@ function isPositionEmpty(position, grid) {
   return false;
 }
 
-function updateBoard(grid, position, player) {
+function updateBoard (grid, position, player) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
       if (grid[i][j] === position) grid[i][j] = player.character;
@@ -202,7 +202,7 @@ function updateBoard(grid, position, player) {
   }
 }
 
-function declareWinner(players, printFn) {
+function declareWinner (players, printFn) {
   if (players[0].hasWon && players[1].hasWon) {
     printFn("Oh, it is a draw");
   }
