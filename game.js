@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   terminal: false
 });
 
-function startGame () {
+function startGame() {
   const players = setupPlayers();
   const grid = buildBoard();
   setupGame(players);
@@ -17,12 +17,12 @@ function startGame () {
   declareWinner();
 }
 
-function play (player, grid) {
+function play(player, grid) {
   const position = choosePosition();
   updateBoard(grid, position, player);
 }
 
-function setupPlayers () {
+function setupPlayers() {
   return [
     {
       type: "human",
@@ -39,7 +39,7 @@ function setupPlayers () {
   ];
 }
 
-function buildBoard () {
+function buildBoard() {
   const grid = new Array(3);
   for (let k = 0; k < grid.length; k++) {
     grid[k] = new Array(3);
@@ -54,14 +54,14 @@ function buildBoard () {
   return grid;
 }
 
-function setupGame (players) {
+function setupGame(players) {
   console.log("Welcome! This is a Tic Tac Toe game.");
   console.log(
-    "To start playing you need to choose a character you will use from either \"o\" or \"x\""
+    'To start playing you need to choose a character you will use from either "o" or "x"'
   );
 
   let char = "";
-  rl.question("Enter your chosen character? ", function (ans) {
+  rl.question("Enter your chosen character? ", function(ans) {
     char = ans.trim();
     rl.close();
 
@@ -75,7 +75,7 @@ function setupGame (players) {
   });
 }
 
-function isGameOver (grid, players) {
+function isGameOver(grid, players) {
   for (let i = 0; i < grid.length; i++) {
     if (grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2]) {
       for (const player of players) {
@@ -118,7 +118,7 @@ function isGameOver (grid, players) {
   return false;
 }
 
-function isGridFull (grid) {
+function isGridFull(grid) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
       if (typeof grid[i][j] === "number") return false;
@@ -127,7 +127,7 @@ function isGridFull (grid) {
   return true;
 }
 
-function printBoard (grid, printFn) {
+function printBoard(grid, printFn) {
   for (let i = 0; i < grid.length; i++) {
     let row = "";
     for (let j = 0; j < grid[0].length; j++) {
@@ -137,6 +137,29 @@ function printBoard (grid, printFn) {
   }
 }
 
+function choosePlayer(players) {
+  if (!players[0].turn && !players[1].turn) {
+    const idx = Math.round(Math.random() * 1);
+    players[idx].turn = true;
+    return players[idx];
+  }
+
+  if (players[0].turn) {
+    players[0].turn = false;
+    players[1].turn = true;
+    return players[1];
+  }
+
+  if (players[1].turn) {
+    players[1].turn = false;
+    players[0].turn = true;
+    return players[0];
+  }
+
+  return null;
+}
+
+exports.choosePlayer = choosePlayer;
 exports.printBoard = printBoard;
 exports.isGameOver = isGameOver;
 exports.setupGame = setupGame;
