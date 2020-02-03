@@ -1,7 +1,14 @@
 const game = require("./game");
 
+let players = null;
+let grid = null;
+
+beforeAll(() => {
+  players = game.setupPlayers();
+  grid = game.buildBoard();
+});
+
 describe("testing setupPlayers...", () => {
-  const players = game.setupPlayers();
   test("do we have two players", () => {
     expect(players.length).toBe(2);
   });
@@ -26,7 +33,6 @@ describe("testing setupPlayers...", () => {
 });
 
 describe("testing buildBoard...", () => {
-  const grid = game.buildBoard();
   test("has grid been created with initial vals", () => {
     let count = 1;
     for (let i = 0; i < grid.length; i++) {
@@ -38,7 +44,6 @@ describe("testing buildBoard...", () => {
 });
 
 describe("testing isGameOver...", () => {
-  const players = game.setupPlayers();
   let horizontalGrid = [
     ["x", "x", "x"],
     [4, "o", "o"],
@@ -66,5 +71,13 @@ describe("testing isGameOver...", () => {
     expect(game.isGameOver(verticalGrid, players)).toBeTruthy();
     expect(game.isGameOver(diagonalGrid, players)).toBeTruthy();
     expect(game.isGameOver(fullGrid, players)).toBeTruthy();
+  });
+});
+
+describe("testing printBoard...", () => {
+  test("check if print row is working", () => {
+    const printMock = jest.fn();
+    game.printBoard(grid, printMock);
+    expect(printMock).toHaveBeenCalledTimes(3);
   });
 });
