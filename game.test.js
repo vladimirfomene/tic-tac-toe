@@ -1,6 +1,6 @@
 const game = require("./game");
 
-describe("testing setupPlayers", () => {
+describe("testing setupPlayers...", () => {
   const players = game.setupPlayers();
   test("do we have two players", () => {
     expect(players.length).toBe(2);
@@ -25,7 +25,7 @@ describe("testing setupPlayers", () => {
   });
 });
 
-describe("testing buildBoard", () => {
+describe("testing buildBoard...", () => {
   const grid = game.buildBoard();
   test("has grid been created with initial vals", () => {
     let count = 1;
@@ -34,5 +34,37 @@ describe("testing buildBoard", () => {
         expect(grid[i][j]).toBe(count++);
       }
     }
+  });
+});
+
+describe("testing isGameOver...", () => {
+  const players = game.setupPlayers();
+  let horizontalGrid = [
+    ["x", "x", "x"],
+    [4, "o", "o"],
+    [7, 8, 9]
+  ];
+  let verticalGrid = [
+    ["x", "o", "o"],
+    ["x", "o", "o"],
+    ["x", 8, 9]
+  ];
+  let diagonalGrid = [
+    ["x", "o", "x"],
+    [4, "x", "o"],
+    [7, 8, "x"]
+  ];
+
+  let fullGrid = [
+    ["x", "o", "x"],
+    ["x", "x", "o"],
+    ["o", "x", "o"]
+  ];
+
+  test("has a player won the game", () => {
+    expect(game.isGameOver(horizontalGrid, players)).toBeTruthy();
+    expect(game.isGameOver(verticalGrid, players)).toBeTruthy();
+    expect(game.isGameOver(diagonalGrid, players)).toBeTruthy();
+    expect(game.isGameOver(fullGrid, players)).toBeTruthy();
   });
 });
