@@ -56,6 +56,24 @@ class UI {
     };
   }
 
+  choosePosition (player, board, read) {
+    let position = -1;
+    if (player.type === "human") {
+      while (position < 1 || position > 9 || isNaN(position)) {
+        position = parseInt(read("Choose a position on the board? "));
+        if (!board.isPositionEmpty(position)) position = -1;
+      }
+    }
+
+    if (player.type === "AI") {
+      while (!board.isPositionEmpty(position)) {
+        position = Math.round(Math.random() * 8) + 1;
+      }
+    }
+
+    return position;
+  }
+
   setupGame (players, read) {
     console.log("Welcome! This is a Tic Tac Toe game.");
     console.log(
@@ -73,6 +91,22 @@ class UI {
     } else {
       players[0].character = char;
       players[1].character = "o";
+    }
+  }
+
+  declareWinner (players, printFn) {
+    if (players[0].hasWon && players[1].hasWon) {
+      printFn("Oh, it is a draw");
+      return;
+    }
+
+    if (players[0].hasWon) {
+      printFn("Congratulations, You win!");
+      return;
+    }
+
+    if (players[1].hasWon) {
+      printFn("Oh la la, the computer wins");
     }
   }
 }
