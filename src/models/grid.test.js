@@ -57,3 +57,18 @@ describe("testing isGridFull...", () => {
     expect(board.isGridFull()).toBeTruthy();
   });
 });
+
+describe("testing getPositionIndices...", () => {
+  const grid = [
+    ["x", "x", "x"],
+    [4, "o", "o"],
+    [7, 8, 9]
+  ];
+  test("getting indices i, j for position", () => {
+    board.grid = grid;
+    expect(board.getPositionIndices(4)).toEqual({
+      i: 1,
+      j: 0
+    });
+  });
+});
