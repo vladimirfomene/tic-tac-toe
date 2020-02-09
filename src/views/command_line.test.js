@@ -45,3 +45,19 @@ describe("testing getCharacterForHuman...", () => {
     expect(char).toEqual("x");
   });
 });
+
+describe("testing declareWinner....", () => {
+  test("is correct winner declared?", () => {
+    const printMock = jest.fn();
+    commandLine.declareWinner("tie", gameController.players, printMock);
+    expect(printMock).toHaveBeenCalledWith("Oh, it is a draw");
+
+    gameController.players[0].character = "o";
+    commandLine.declareWinner("o", gameController.players, printMock);
+    expect(printMock).toHaveBeenCalledWith("Congratulations, You win!");
+
+    gameController.players[1].character = "x";
+    commandLine.declareWinner("x", gameController.players, printMock);
+    expect(printMock).toHaveBeenCalledWith("Oh la la, the computer wins");
+  });
+});
