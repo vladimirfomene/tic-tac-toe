@@ -81,3 +81,15 @@ describe("testing getWinner...", () => {
     expect(gameController.getWinner(board)).toEqual("tie");
   });
 });
+
+describe("testing setupScores...", () => {
+  const scores = {
+    human: -10,
+    ai: 10,
+    tie: 0
+  };
+
+  test("check if scores object was setup", () => {
+    expect(gameController.setupScores()).toEqual(scores);
+  });
+});
