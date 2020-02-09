@@ -165,13 +165,13 @@ describe("testing findBestMove...", () => {
       [7, 8, 9]
     ];
 
-    const fourGrid = [
+    const sevenGrid = [
       ["x", "x", "o"],
       ["x", "o", 6],
       ["o", 8, 9]
     ];
 
-    const sixGrid = [
+    const eightGrid = [
       ["x", "x", "o"],
       ["x", "o", "x"],
       ["o", "o", 9]
@@ -183,9 +183,9 @@ describe("testing findBestMove...", () => {
     expect(gameController.findBestMove(board, gameController.players[1])).toEqual(2);
     board.grid = threeGrid;
     expect(gameController.findBestMove(board, gameController.players[1])).toEqual(4);
-    board.grid = fourGrid;
+    board.grid = sevenGrid;
     expect(gameController.findBestMove(board, gameController.players[1])).toEqual(6);
-    board.grid = sixGrid;
+    board.grid = eightGrid;
     expect(gameController.findBestMove(board, gameController.players[1])).toEqual(9);
   });
 });
