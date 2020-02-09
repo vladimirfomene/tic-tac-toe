@@ -1,5 +1,4 @@
 const { GameController } = require("./game_controller");
-const { Player } = require("../models/player");
 const { Grid } = require("../models/grid");
 
 let gameController;
@@ -35,18 +34,13 @@ describe("testing setupPlayers...", () => {
 
 describe("testing choosePlayerToPlay...", () => {
   test("was current player chosen", () => {
-    const initPlayers = [
-      new Player("human"),
-      new Player("ai")
-    ];
-    const human = new Player("human");
-    human.turn = true;
-    const turnPlayers = [
-      human,
-      new Player("ai")
-    ];
-    expect(gameController.choosePlayerToPlay(initPlayers)).not.toBeNull();
-    const chosenPlayer = gameController.choosePlayerToPlay(turnPlayers);
+    const controller = new GameController();
+    expect(controller.choosePlayerToPlay()).not.toBeNull();
+    for (let i = 0; i < controller.players; i++) {
+      controller.players[i].turn = false;
+    }
+    controller.players[0].turn = true;
+    const chosenPlayer = controller.choosePlayerToPlay();
     expect(chosenPlayer.type).toEqual("ai");
     expect(chosenPlayer.character).toEqual("");
     expect(chosenPlayer.turn).toEqual(true);
