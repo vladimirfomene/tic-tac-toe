@@ -93,3 +93,15 @@ describe("testing setupScores...", () => {
     expect(gameController.setupScores()).toEqual(scores);
   });
 });
+
+describe("testing assignCharToPlayers...", () => {
+  test("check if players have characters", () => {
+    gameController.assignCharToPlayers("o");
+    expect(gameController.players[0].character).toEqual("o");
+    expect(gameController.players[1].character).toEqual("x");
+
+    gameController.assignCharToPlayers("x");
+    expect(gameController.players[0].character).toEqual("x");
+    expect(gameController.players[1].character).toEqual("o");
+  });
+});
