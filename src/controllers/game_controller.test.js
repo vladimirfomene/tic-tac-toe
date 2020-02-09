@@ -117,7 +117,6 @@ describe("testing evaluation...", () => {
 });
 
 describe("testing minimax...", () => {
-
   test("test optimal value returned by some grid states", () => {
     const fullGrid = [
       ["x", "o", "x"],
