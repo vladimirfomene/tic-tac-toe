@@ -9,6 +9,9 @@ class GameController {
     this.players = this.setupPlayers("human", "ai");
   }
 
+  /**
+   * Controls the game play
+   */
   play () {
     const commandLine = new CommandLine();
     commandLine.printGameInstructions(console.log);
@@ -40,6 +43,12 @@ class GameController {
     }
   }
 
+  /**
+   * Create array for human and ai players
+   * @param {string} firstPlayer - type for first player
+   * @param {string} secondPlayer - type for second player
+   * @returns {Array} - array of human and ai players
+   */
   setupPlayers (firstPlayer, secondPlayer) {
     return [
       new Player(firstPlayer),
@@ -47,6 +56,10 @@ class GameController {
     ];
   }
 
+  /**
+   * Assign a char to each player
+   * @param {string} humanChar - character chosen by human player
+   */
   assignCharToPlayers (humanChar) {
     if (humanChar === "o") {
       this.players[0].character = humanChar;
@@ -57,6 +70,10 @@ class GameController {
     }
   }
 
+  /**
+   * setup scores for evaluating the terminal state of the minimax
+   * @returns {object} - object with a score for each player at the end of a game
+   */
   setupScores () {
     return {
       human: -10,
@@ -65,6 +82,10 @@ class GameController {
     };
   }
 
+  /**
+   * From the players array choose player to play the current turn
+   * @returns {object} - instance of Player to play current turn
+   */
   choosePlayerToPlay () {
     if (!this.players[0].turn && !this.players[1].turn) {
       const idx = Math.round(Math.random() * 1);
@@ -87,6 +108,11 @@ class GameController {
     return null;
   }
 
+  /**
+   * Check if the game is in a terminating condition and return winning character
+   * @param {Grid} board - winning character
+   * @returns {string} - "x", "o" or "tie"
+   */
   getWinner (board) {
     let winner = null;
     for (let i = 0; i < board.grid.length; i++) {
@@ -116,10 +142,23 @@ class GameController {
     return winner;
   }
 
+  /**
+   * Choose a move for ai player using minimax algorithm.
+   * @param {Grid} board - instance of the Grid class (game board)
+   * @param {Player} player - instance of ai player
+   * @returns {position} - cell position where ai wants to play
+   */
   choosePositionForAI (board, player) {
     return this.findBestMove(board, player);
   }
 
+  /**
+   * Use the minimax algorithm to play all possible game scenario from the
+   * current state of the board to figure out the most optimal move.
+   * @param {Grid} board - instance of the Grid class (game board)
+   * @param {Player} player - instance of ai player
+   * @returns {number} - optimal cell position
+   */
   findBestMove (board, player) {
     let bestMove = -1;
     let optimalVal = -Infinity;
@@ -140,6 +179,13 @@ class GameController {
     return bestMove;
   }
 
+  /**
+   * Implements the minimax algorithm by playing all possible scenario from
+   * current game board using maximizer and minimizer.
+   * @param {Grid} board - instance of the Grid class (game board)
+   * @param {boolean} isMaximizer - tells if player is maximizer or minimizer
+   * @returns {number} - optimal value from minimax
+   */
   minimax (board, isMaximizer) {
     const winner = this.getWinner(board);
     if (winner !== null) {
@@ -177,6 +223,11 @@ class GameController {
     }
   }
 
+  /**
+   * Gets the score from a winning character
+   * @param {String} winningChar - "x", "o" or "tie"
+   * @returns {number} - score for winning character
+   */
   evaluation (winningChar) {
     const winner = this.players.filter(player => player.character === winningChar);
     if (winner.length === 1 && winner[0].type === "human") return this.scores.human;
