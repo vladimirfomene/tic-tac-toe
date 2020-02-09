@@ -105,3 +105,13 @@ describe("testing assignCharToPlayers...", () => {
     expect(gameController.players[1].character).toEqual("o");
   });
 });
+
+describe("testing evaluation...", () => {
+  test("evaluating winning characters", () => {
+    expect(gameController.evaluation("tie")).toEqual(0);
+    gameController.players[0].character = "x";
+    expect(gameController.evaluation("x")).toEqual(-10);
+    gameController.players[1].character = "o";
+    expect(gameController.evaluation("o")).toEqual(10);
+  });
+});
