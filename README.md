@@ -1,4 +1,5 @@
 # Tic Tac Toe
+This is a Tic Tac Toe game where a human plays with an AI. The AI uses the minimax algorithm to take the most optimal move at each point in the game.
 
 # Prerequisites
 Software you need to install to play this game 

@@ -1,4 +1,8 @@
-const game = require("./game");
+const { GameController } = require("./controllers/game_controller");
 
-// Start tic tac toe game
-game.startGame();
+/**
+ * Initialize game controller and start
+ * the game.
+ */
+const gameController = new GameController();
+gameController.play();
