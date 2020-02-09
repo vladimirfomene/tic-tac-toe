@@ -146,3 +146,47 @@ describe("testing minimax...", () => {
   });
 });
 
+describe("testing findBestMove...", () => {
+  test("", () => {
+    const startGrid = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+
+    const fiveGrid = [
+      ["x", 2, 3],
+      [4, "o", 6],
+      [7, 8, 9]
+    ];
+
+    const threeGrid = [
+      ["x", "x", "o"],
+      [4, "o", 6],
+      [7, 8, 9]
+    ];
+
+    const fourGrid = [
+      ["x", "x", "o"],
+      ["x", "o", 6],
+      ["o", 8, 9]
+    ];
+
+    const sixGrid = [
+      ["x", "x", "o"],
+      ["x", "o", "x"],
+      ["o", "o", 9]
+    ];
+
+    board.grid = startGrid;
+    expect(gameController.findBestMove(board, gameController.players[1])).toEqual(1);
+    board.grid = fiveGrid;
+    expect(gameController.findBestMove(board, gameController.players[1])).toEqual(2);
+    board.grid = threeGrid;
+    expect(gameController.findBestMove(board, gameController.players[1])).toEqual(4);
+    board.grid = fourGrid;
+    expect(gameController.findBestMove(board, gameController.players[1])).toEqual(6);
+    board.grid = sixGrid;
+    expect(gameController.findBestMove(board, gameController.players[1])).toEqual(9);
+  });
+});
