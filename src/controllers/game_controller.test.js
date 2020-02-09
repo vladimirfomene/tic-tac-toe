@@ -1,6 +1,6 @@
-const { GameController } = require("game_controller");
-const { Player } = require("player");
-const { Grid } = require("grid");
+const { GameController } = require("./game_controller");
+const { Player } = require("../models/player");
+const { Grid } = require("../models/grid");
 
 let gameController;
 let board;
@@ -84,6 +84,6 @@ describe("testing getWinner...", () => {
     board.grid = diagonalGrid;
     expect(gameController.getWinner(board)).toEqual("x");
     board.grid = fullGrid;
-    expect(gameController.getWinnerr(board)).toEqual("tie");
+    expect(gameController.getWinner(board)).toEqual("tie");
   });
 });

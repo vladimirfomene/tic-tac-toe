@@ -1,6 +1,6 @@
-const { CommandLine } = require("command_line");
-const { Grid } = require("grid");
-const { GameController } = require("game_controller");
+const { CommandLine } = require("./command_line");
+const { Grid } = require("../models/grid");
+const { GameController } = require("../controllers/game_controller");
 
 let commandLine;
 let board;
@@ -15,7 +15,7 @@ beforeAll(() => {
 describe("testing printBoard...", () => {
   test("check if print row is working", () => {
     const printMock = jest.fn();
-    commandLine.printBoard(printMock);
+    commandLine.printBoard(printMock, board.grid);
     expect(printMock).toHaveBeenCalledTimes(3);
   });
 });
