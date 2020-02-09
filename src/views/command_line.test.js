@@ -28,3 +28,20 @@ describe("testing choosePositionForHuman", () => {
     expect(posHuman).toBeLessThan(10);
   });
 });
+
+describe("testing printGameInstructions...", () => {
+  test("were instructions printed", () => {
+    const printMock = jest.fn();
+    commandLine.printGameInstructions(printMock);
+    expect(printMock).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("testing getCharacterForHuman...", () => {
+  test("was the position gotten from user?", () => {
+    const mockRead = jest.fn(() => "x");
+    const char = commandLine.getCharacterForHuman(mockRead);
+    expect(mockRead).toHaveBeenCalled();
+    expect(char).toEqual("x");
+  });
+});
