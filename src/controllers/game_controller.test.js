@@ -115,3 +115,34 @@ describe("testing evaluation...", () => {
     expect(gameController.evaluation("o")).toEqual(10);
   });
 });
+
+describe("testing minimax...", () => {
+
+  test("test optimal value returned by some grid states", () => {
+    const fullGrid = [
+      ["x", "o", "x"],
+      ["x", "x", "o"],
+      ["o", "x", "o"]
+    ];
+
+    const gridMax = [
+      ["x", "o", "x"],
+      [4, "o", "o"],
+      [7, 8, "x"]
+    ];
+
+    const gridMin = [
+      ["x", "x", "x"],
+      [4, "o", "o"],
+      [7, 8, 9]
+    ];
+
+    board.grid = fullGrid;
+    expect(gameController.minimax(board, true)).toEqual(0);
+    board.grid = gridMax;
+    expect(gameController.minimax(board, true)).toEqual(10);
+    board.grid = gridMin;
+    expect(gameController.minimax(board, true)).toEqual(-10);
+  });
+});
+
