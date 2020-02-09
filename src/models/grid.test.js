@@ -1,4 +1,4 @@
-const { Grid } = require("grid");
+const { Grid } = require("./grid");
 
 let board;
 beforeAll(() => {
@@ -43,5 +43,17 @@ describe("testing isPositionEmpty...", () => {
     board.grid = grid;
     expect(board.isPositionEmpty(1)).toBeFalsy();
     expect(board.isPositionEmpty(-1)).toBeFalsy();
+  });
+});
+
+describe("testing isGridFull...", () => {
+  const grid = [
+    ["x", "x", "x"],
+    ["x", "o", "o"],
+    ["x", "x", "x"]
+  ];
+  test("check if the grid is full", () => {
+    board.grid = grid;
+    expect(board.isGridFull()).toBeTruthy();
   });
 });
